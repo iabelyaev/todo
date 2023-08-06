@@ -1,4 +1,3 @@
-import '../scss/style.scss';
 import { init, todos } from './todo.js';
 import { renderTask } from './task.js';
 import { initFilters } from './filter.js';
