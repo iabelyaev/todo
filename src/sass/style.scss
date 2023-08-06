@@ -1,0 +1,11 @@
+// Global
+@import './global/variables.scss';
+@import './global/reboot.scss';
+@import './global/mixins.scss';
+@import './global/fonts.scss';
+// Blocks
+@import './blocks/main.scss';
+@import './blocks/container.scss';
+@import './blocks/todo.scss';
+@import './blocks/todo-main.scss';
+@import './blocks/filters.scss';

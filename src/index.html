@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.min.css" />
+    <title>TodoList</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="container">
+        <section class="todo">
+          <h1>todo</h1>
+          <input class="todo__new" type="text">
+          <label class="todo__label">
+            <input class="visually-hidden todo__button" type="checkbox">
+            <span class="todo__button todo__button--control"></span>
+          </label>
+        </section>
+        <section class="todo-main">
+          <ul class="todo__list"></ul>
+          <footer class="todo-main__footer">
+            <div class="todo-main__footer-inner">
+              <span class="todo-main__count"><span class="count"></span> item</span>
+              <div class="filters">
+                <a class="filters__link filters__link--active" id="all" href="#/">
+                  all
+                </a>
+                <a class="filters__link" id="active" href="#/active">
+                  active
+                </a>
+                <a class="filters__link" id="completed" href="#/completed">
+                  completed
+                </a>
+              </div>
+                <button class="filters__button">
+                  Clear completed
+                </button>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="./src/js/main.js"></script>
+  </body>
+</html>

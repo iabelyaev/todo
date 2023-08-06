@@ -1,0 +1,47 @@
+// Filters
+.filters {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 10px;
+}
+
+.filters__link {
+  font-size: 12px;
+  text-decoration: none;
+  color: #000000;
+  padding: 3px 7px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  &--active {
+    border-color: #dda0dd;
+    pointer-events: none;
+  }
+
+  &:hover {
+    border-color: #dda0dd;
+  }
+
+  @include desktop {
+    font-size: 20px;
+  }
+}
+
+.filters__button {
+  display: none;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @include desktop {
+    font-size: 16px;
+  }
+}

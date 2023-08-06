@@ -1,0 +1,126 @@
+.todo__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.todo__item {
+  position: relative;
+  padding-left: 60px;
+  font-size: 20px;
+  background-color: $white;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid hsl(0, 0%, 41.2%, 0.3);
+  }
+
+  &--completed {
+    text-decoration: line-through;
+    color: #e6e6e6;
+  }
+}
+
+.todo__text {
+  display: block;
+  margin: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #98fb98;
+  }
+}
+
+.todo__item-input + span {
+  margin: 0;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid $dim-gray;
+  border-radius: 50%;
+  z-index: 11;
+  cursor: pointer;
+}
+
+.todo__item-input:checked + span::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  background-color: hsl(187, 51.9%, 79.6%);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.todo__item-close {
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  cursor: pointer;
+  color: $plum;
+  display: none;
+  transition: color 0.3s ease-out;
+
+  &::after {
+    content: "×";
+  }
+
+  &:hover {
+    color: #663399;
+  }
+}
+
+.todo__item:hover .todo__item-close {
+  display: block;
+}
+
+
+.todo__item:hover .todo__item-close .edit {
+  display: none;
+}
+
+.todo-main__footer {
+  min-height: 20px;
+  background-color: $white;
+  border-top: 1px solid hsl(0, 0%, 90%);
+  padding: 10px;
+
+  @include desktop {
+    padding: 10px 15px;
+  }
+}
+
+.todo-main__count {
+  font-size: 12px;
+
+  @include desktop {
+    font-size: 20px;
+  }
+}
+
+
+.todo-main__footer-inner {
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+  max-width: 520px;
+  width: 100%;
+}

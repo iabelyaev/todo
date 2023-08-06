@@ -1,0 +1,68 @@
+.todo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin: 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 76px;
+    line-height: 1em;
+    text-align: center;
+    color: $pink;
+  }
+}
+
+
+.todo__new {
+  margin: 0;
+  padding: 16px 16px 16px 60px;
+  display: flex;
+  background-color: $white;
+  border: none;
+  box-shadow: inset 0 -2px 1px rgb(192, 192, 192, 0.6);
+  font-size: 2rem;
+  width: 100%;
+  user-select: none;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.todo__label {
+  position: absolute;
+  top: 75%;
+  left: 5px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.todo__button {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+.todo__button + .todo__button--control::before {
+  content: "❯";
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  font-size: 22px;
+  background-color: transparent;
+  border: none;
+  color: #e6e6e6;
+
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.todo__button:checked + .todo__button--control::before {
+  color: #b2afafa0;
+}
