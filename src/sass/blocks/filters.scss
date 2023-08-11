@@ -3,11 +3,15 @@
   display: flex;
   align-items: center;
   height: 100%;
-  gap: 10px;
+
+  @media (min-width: 600px) {
+    gap: 10px;
+  }
 }
 
 .filters__link {
-  font-size: 12px;
+  font-size: 1rem;
+  line-height: 1em;
   text-decoration: none;
   color: #000000;
   padding: 3px 7px;
@@ -22,10 +26,6 @@
   &:hover {
     border-color: #dda0dd;
   }
-
-  @include desktop {
-    font-size: 20px;
-  }
 }
 
 .filters__button {
@@ -33,15 +33,11 @@
   padding: 0;
   border: none;
   background-color: transparent;
-  font-size: 12px;
+  font-size: 0.8rem;
 
   cursor: pointer;
 
   &:hover {
     text-decoration: underline;
-  }
-
-  @include desktop {
-    font-size: 16px;
   }
 }

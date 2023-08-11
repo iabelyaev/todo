@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '16.x'
 
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
         name: Checkout
 
       - name: Install dependencies
