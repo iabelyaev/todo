@@ -1,4 +1,4 @@
-import { todos } from './todo.js';
+import { todos, showToggleAll } from './todo.js';
 import { renderTask } from './task.js';
 const Filter = {
   ALL: 'all',
@@ -51,6 +51,7 @@ const initFilters = () => {
     localStorage.setItem('filter', filterName);
     const dataTodo = getFilteredItems(filterName);
     renderTask(dataTodo);
+    showToggleAll();
   });
 };
 

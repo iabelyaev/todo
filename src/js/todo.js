@@ -23,6 +23,33 @@ const showButton = () => {
   });
 };
 
+if (localStorage.getItem('state') === 'true') {
+  buttonStrelka.setAttribute('checked','checked');
+}
+
+const showToggleAll = () => {
+  const hasEventEvery = todos.every((task) => task.completed === true);
+  const element = document.querySelectorAll('.todo__item');
+  document.querySelector('.todo__button--control').style.display = 'none';
+  element.forEach(() => {
+    if(element.length >= 1) {
+      document.querySelector('.todo__button--control').style.display = 'block';
+    } else {
+      document.querySelector('.todo__button--control').style.display = 'none';
+    }
+  });
+
+  if (hasEventEvery) {
+    buttonStrelka.setAttribute('checked', 'checked');
+    localStorage.setItem('state', 'true');
+  } else {
+    buttonStrelka.removeAttribute('checked');
+    localStorage.setItem('state', 'false');
+  }
+
+  initFilters();
+};
+
 const completedTask = (evt) => {
   if (!evt.target.classList.contains('todo__item-input')) {
     return;
@@ -36,6 +63,9 @@ const completedTask = (evt) => {
   getCount();
   saveLocal();
   showButton();
+  onButtonClickStrelka();
+  showToggleAll();
+  initFilters();
 };
 
 const deleteTask = (evt) => {
@@ -47,6 +77,8 @@ const deleteTask = (evt) => {
   const parenNodeId = Number(parenNode.dataset.id);
   todos = todos.filter((it) => it.id !== parenNodeId);
   parenNode.remove();
+  showButton();
+  showToggleAll();
   getCount();
   saveLocal();
 };
@@ -63,31 +95,34 @@ const clearCompleted = () => {
       saveLocal();
     });
     showButton();
+    showToggleAll();
+    localStorage.setItem('state', 'false');
   });
 };
 
-const onButtonClickStrelka = () => {
-  let isTodosLocked = false;
+function onButtonClickStrelka () {
   buttonStrelka.addEventListener('change', () => {
+    localStorage.setItem('state', 'false');
     todos.forEach((item) => {
       const element = document.querySelector(`.todo__item[data-id="${item.id}"]`);
-      if(isTodosLocked) {
-        item.completed = false;
-        element.classList.remove('todo__item--completed');
-        element.querySelector('.todo__item-input').checked = false;
-      } else {
+      if(buttonStrelka.checked) {
         item.completed = true;
         element.classList.add('todo__item--completed');
         element.querySelector('.todo__item-input').checked = true;
+        localStorage.setItem('state', 'true');
+      } else {
+        item.completed = false;
+        element.classList.remove('todo__item--completed');
+        element.querySelector('.todo__item-input').checked = false;
+        localStorage.setItem('state', 'false');
       }
     });
-    isTodosLocked = !isTodosLocked;
-    saveLocal();
     getCount();
     showButton();
+    saveLocal();
+    initFilters();
   });
-};
-
+}
 const getTodoData = (id) => todos.find((task) => task.id === Number(id));
 
 const editOfTask = (evt) => {
@@ -120,8 +155,20 @@ const editOfTask = (evt) => {
     getCount();
   });
 
+  document.addEventListener('click', () => {
+
+    if (parenText.innerHTML === '') {
+      todos = todos.filter((task) => task.id !== parenNodeId);
+      parenNode.remove();
+    }
+
+    saveLocal();
+    getCount();
+  });
+
   showButton();
 };
+
 
 const init = () => {
   input.addEventListener('keydown', (evt) => {
@@ -136,11 +183,13 @@ const init = () => {
       saveLocal();
       getCount();
       initFilters();
+      showToggleAll();
       input.value = '';
     }
   });
   clearCompleted();
-  onButtonClickStrelka();
+  initFilters();
+  showToggleAll();
 
   todoList.addEventListener('change', completedTask);
   todoList.addEventListener('click', deleteTask);
@@ -148,4 +197,4 @@ const init = () => {
 };
 
 
-export { init, todos, showButton };
+export { init, todos, showButton, showToggleAll, onButtonClickStrelka };

@@ -24,7 +24,7 @@
   box-shadow: inset 0 -2px 1px rgb(192, 192, 192, 0.6);
   font-size: 2rem;
   width: 100%;
-  user-select: none;
+  position: relative;
 
   &:focus {
     outline: 0;
@@ -42,27 +42,32 @@
 }
 
 .todo__button {
-  display: block;
-  width: 100%;
-  height: 100%;
+  width: 1px;
+  height: 1px;
+  border: none;
+  opacity: 0;
+  position: absolute;
+  right: 100%;
+  bottom: 100%;
 }
 
+.todo__button + label {
+  width: 60px;
+  height: 34px;
+  font-size: 0;
+  position: absolute;
+  top: -52px;
+  left: -13px;
+  transform: rotate(90deg);
+}
 
 .todo__button + .todo__button--control::before {
   content: "❯";
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
+  padding: 10px 27px;
   font-size: 22px;
-  background-color: transparent;
-  border: none;
-  color: #e6e6e6;
-
-  transform: translate(-50%, -50%) rotate(90deg);
+  color: black;
 }
 
 .todo__button:checked + .todo__button--control::before {
-  color: #b2afafa0;
+  color: red;
 }

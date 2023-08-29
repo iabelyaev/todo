@@ -9,15 +9,13 @@
   <body>
     <main class="main">
       <div class="container">
-        <section class="todo">
+        <section class="todo" id="todo">
           <h1>todo</h1>
           <input class="todo__new" type="text">
-          <label class="todo__label">
-            <input class="visually-hidden todo__button" type="checkbox">
-            <span class="todo__button todo__button--control"></span>
-          </label>
         </section>
-        <section class="todo-main">
+        <section class="todo-main" id="todo-main">
+            <input class="todo__button" type="checkbox" id="checkStrelka">
+            <label for="checkStrelka" class="todo__button--control"></label>
           <ul class="todo__list"></ul>
           <footer class="todo-main__footer">
             <div class="todo-main__footer-inner">
