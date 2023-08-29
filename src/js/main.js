@@ -3,9 +3,8 @@ import { renderTask } from './task.js';
 import { initFilters } from './filter.js';
 import { showButton, showToggleAll, onButtonClickStrelka} from './todo.js';
 import { getCount } from './counter.js';
-
+import { toggleTheme } from './theme.js';
 init();
-
 
 if (localStorage.getItem('todos')) {
   todos.map((task) => {
@@ -19,4 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
   showToggleAll();
   getCount();
   onButtonClickStrelka();
+  toggleTheme();
 });

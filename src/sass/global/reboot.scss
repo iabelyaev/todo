@@ -5,19 +5,20 @@
 }
 
 html {
-  height: 100vh;
+  height: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
   display: flex;
+  flex-direction: column;
   min-width: 320px;
   min-height: 100%;
   font-family: "ABeeZee", sans-serif;
   font-size: 16px;
   line-height: 1em;
-  background-color: $sea-shell;
+  background-color: var(--background-color-body);
 }
 
 .visually-hidden {
@@ -32,3 +33,28 @@ body {
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
 }
+
+.main {
+  position: relative; 
+  padding-top: 75px;
+  flex-grow: 1;
+}
+
+.button-theme {
+  position: absolute;
+  top: 22px;
+  right: 40px;
+  display: inline-block;
+  padding: 7px 10px;
+  min-width: 120px;
+  background-color: var(--background-color-button);
+  border: none;
+  border-radius: 5px;
+  z-index: 99;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .8;
+  }
+}
+

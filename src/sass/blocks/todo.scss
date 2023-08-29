@@ -65,9 +65,9 @@
   content: "❯";
   padding: 10px 27px;
   font-size: 22px;
-  color: black;
+  color: #e6e6e6;
 }
 
 .todo__button:checked + .todo__button--control::before {
-  color: red;
+  color: #737373;
 }
