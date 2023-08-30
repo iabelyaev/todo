@@ -46,7 +46,7 @@ const showToggleAll = () => {
     buttonStrelka.removeAttribute('checked');
     localStorage.setItem('state', 'false');
   }
-
+  showButton();
   initFilters();
 };
 
