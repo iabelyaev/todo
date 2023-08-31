@@ -28,26 +28,23 @@ if (localStorage.getItem('state') === 'true') {
 }
 
 const showToggleAll = () => {
+  let isStat = false;
   const hasEventEvery = todos.every((task) => task.completed === true);
-  const element = document.querySelectorAll('.todo__item');
   document.querySelector('.todo__button--control').style.display = 'none';
-  element.forEach(() => {
-    if(element.length >= 1) {
-      document.querySelector('.todo__button--control').style.display = 'block';
-    } else {
-      document.querySelector('.todo__button--control').style.display = 'none';
-    }
-  });
+  if(todos.length >= 1) {
+    document.querySelector('.todo__button--control').style.display = 'block';
+  } else {
+    document.querySelector('.todo__button--control').style.display = 'none';
+  }
 
   if (hasEventEvery) {
     buttonStrelka.setAttribute('checked', 'checked');
-    localStorage.setItem('state', 'true');
+    isStat = !isStat;
   } else {
     buttonStrelka.removeAttribute('checked');
-    localStorage.setItem('state', 'false');
   }
+  localStorage.setItem('state', isStat);
   showButton();
-  initFilters();
 };
 
 const completedTask = (evt) => {
@@ -120,7 +117,6 @@ function onButtonClickStrelka () {
     getCount();
     showButton();
     saveLocal();
-    initFilters();
   });
 }
 const getTodoData = (id) => todos.find((task) => task.id === Number(id));
@@ -189,6 +185,7 @@ const init = () => {
   });
   clearCompleted();
   initFilters();
+  onButtonClickStrelka();
   showToggleAll();
 
   todoList.addEventListener('change', completedTask);

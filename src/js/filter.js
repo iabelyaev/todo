@@ -1,4 +1,4 @@
-import { todos, showToggleAll } from './todo.js';
+import { todos, showToggleAll, onButtonClickStrelka } from './todo.js';
 import { renderTask } from './task.js';
 const Filter = {
   ALL: 'all',
@@ -52,6 +52,7 @@ const initFilters = () => {
     const dataTodo = getFilteredItems(filterName);
     renderTask(dataTodo);
     showToggleAll();
+    onButtonClickStrelka();
   });
 };
 
