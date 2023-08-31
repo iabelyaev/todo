@@ -1,5 +1,4 @@
 import { createTaskData } from './data.js';
-import { renderTask } from './task.js';
 import { getCount } from './counter.js';
 import { saveLocal } from './local.js';
 import { initFilters } from './filter.js';
@@ -101,21 +100,26 @@ function onButtonClickStrelka () {
   buttonStrelka.addEventListener('change', () => {
     localStorage.setItem('state', 'false');
     todos.forEach((item) => {
-      const element = document.querySelector(`.todo__item[data-id="${item.id}"]`);
+      const elements = document.querySelectorAll(`.todo__item[data-id="${item.id}"]`);
       if(buttonStrelka.checked) {
         item.completed = true;
-        element.classList.add('todo__item--completed');
-        element.querySelector('.todo__item-input').checked = true;
+        elements.forEach((element) => {
+          element.classList.add('todo__item--completed');
+          element.querySelector('.todo__item-input').checked = true;
+        });
         localStorage.setItem('state', 'true');
       } else {
         item.completed = false;
-        element.classList.remove('todo__item--completed');
-        element.querySelector('.todo__item-input').checked = false;
+        elements.forEach((element) => {
+          element.classList.remove('todo__item--completed');
+          element.querySelector('.todo__item-input').checked = false;
+        });
         localStorage.setItem('state', 'false');
       }
     });
     getCount();
     showButton();
+    showToggleAll();
     saveLocal();
   });
 }
@@ -174,7 +178,6 @@ const init = () => {
 
     if (evt.key === 'Enter') {
       const newTodo = createTaskData();
-      renderTask(newTodo);
       todos.push(newTodo);
       saveLocal();
       getCount();
@@ -186,7 +189,6 @@ const init = () => {
   clearCompleted();
   initFilters();
   onButtonClickStrelka();
-  showToggleAll();
 
   todoList.addEventListener('change', completedTask);
   todoList.addEventListener('click', deleteTask);
