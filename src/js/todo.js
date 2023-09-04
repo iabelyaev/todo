@@ -2,6 +2,7 @@ import { createTaskData } from './data.js';
 import { getCount } from './counter.js';
 import { saveLocal } from './local.js';
 import { initFilters } from './filter.js';
+import { renderTask } from './task.js';
 
 const input = document.querySelector('.todo__new');
 const todoList = document.querySelector('.todo__list');
@@ -10,10 +11,10 @@ const buttonStrelka = document.querySelector('.todo__button');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 const showButton = () => {
-  const element = document.querySelectorAll('.todo__item');
+  const elements = document.querySelectorAll('.todo__item');
   const hasEventSome = todos.some((task) => task.completed === true);
   buttonClearCompleted.style.display = 'none';
-  element.forEach(() => {
+  elements.forEach(() => {
     if(hasEventSome) {
       buttonClearCompleted.style.display = 'block';
     } else {
@@ -22,12 +23,7 @@ const showButton = () => {
   });
 };
 
-if (localStorage.getItem('state') === 'true') {
-  buttonStrelka.setAttribute('checked','checked');
-}
-
 const showToggleAll = () => {
-  let isStat = false;
   const hasEventEvery = todos.every((task) => task.completed === true);
   document.querySelector('.todo__button--control').style.display = 'none';
   if(todos.length >= 1) {
@@ -37,12 +33,10 @@ const showToggleAll = () => {
   }
 
   if (hasEventEvery) {
-    buttonStrelka.setAttribute('checked', 'checked');
-    isStat = !isStat;
+    buttonStrelka.checked = true;
   } else {
-    buttonStrelka.removeAttribute('checked');
+    buttonStrelka.checked = false;
   }
-  localStorage.setItem('state', isStat);
   showButton();
 };
 
@@ -52,14 +46,13 @@ const completedTask = (evt) => {
   }
   const parenNode = evt.target.closest('.todo__item');
   const parenNodeId = Number(parenNode.dataset.id);
-  const taskElement = todos.find((it) => it.id === parenNodeId);
+  const taskElement = todos.find((item) => item.id === parenNodeId);
 
   taskElement.completed = !taskElement.completed;
   parenNode.classList.toggle('todo__item--completed');
   getCount();
   saveLocal();
   showButton();
-  onButtonClickStrelka();
   showToggleAll();
   initFilters();
 };
@@ -92,13 +85,11 @@ const clearCompleted = () => {
     });
     showButton();
     showToggleAll();
-    localStorage.setItem('state', 'false');
   });
 };
 
 function onButtonClickStrelka () {
   buttonStrelka.addEventListener('change', () => {
-    localStorage.setItem('state', 'false');
     todos.forEach((item) => {
       const elements = document.querySelectorAll(`.todo__item[data-id="${item.id}"]`);
       if(buttonStrelka.checked) {
@@ -107,14 +98,12 @@ function onButtonClickStrelka () {
           element.classList.add('todo__item--completed');
           element.querySelector('.todo__item-input').checked = true;
         });
-        localStorage.setItem('state', 'true');
       } else {
         item.completed = false;
         elements.forEach((element) => {
           element.classList.remove('todo__item--completed');
           element.querySelector('.todo__item-input').checked = false;
         });
-        localStorage.setItem('state', 'false');
       }
     });
     getCount();
@@ -178,6 +167,7 @@ const init = () => {
 
     if (evt.key === 'Enter') {
       const newTodo = createTaskData();
+      renderTask(newTodo);
       todos.push(newTodo);
       saveLocal();
       getCount();
@@ -189,6 +179,7 @@ const init = () => {
   clearCompleted();
   initFilters();
   onButtonClickStrelka();
+  showToggleAll();
 
   todoList.addEventListener('change', completedTask);
   todoList.addEventListener('click', deleteTask);

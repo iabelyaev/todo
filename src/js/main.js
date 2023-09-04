@@ -1,7 +1,7 @@
 import { init, todos } from './todo.js';
 import { renderTask } from './task.js';
 import { initFilters } from './filter.js';
-import { showButton, showToggleAll, onButtonClickStrelka} from './todo.js';
+import { showButton } from './todo.js';
 import { getCount } from './counter.js';
 import { toggleTheme } from './theme.js';
 init();
@@ -15,8 +15,6 @@ if (localStorage.getItem('todos')) {
 document.addEventListener('DOMContentLoaded', () => {
   initFilters();
   showButton();
-  showToggleAll();
   getCount();
-  onButtonClickStrelka();
   toggleTheme();
 });

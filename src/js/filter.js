@@ -1,4 +1,4 @@
-import { todos, showToggleAll, onButtonClickStrelka } from './todo.js';
+import { todos } from './todo.js';
 import { renderTask } from './task.js';
 const Filter = {
   ALL: 'all',
@@ -9,11 +9,9 @@ const filter = document.querySelector('.filters');
 let activeFilter = document.querySelector('.filters__link--active');
 const ACTIVE_CLASS = 'filters__link--active';
 
-
 const filterActive = (todo) => !todo.completed;
 
 const filterCompleted = (todo) => todo.completed;
-
 
 const getFilteredItems = (filterName) => {
   switch(filterName) {
@@ -31,7 +29,6 @@ const toggleFilter = (filters) => {
   activeFilter = document.querySelector(`#${filters}`);
   activeFilter.classList.add(ACTIVE_CLASS);
 };
-
 
 const initFilters = () => {
   const filterNames = localStorage.getItem('filter') ?? 'all';
@@ -51,8 +48,6 @@ const initFilters = () => {
     localStorage.setItem('filter', filterName);
     const dataTodo = getFilteredItems(filterName);
     renderTask(dataTodo);
-    showToggleAll();
-    onButtonClickStrelka();
   });
 };
 

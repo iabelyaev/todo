@@ -30,7 +30,6 @@ const renderTask = (data) => {
     data.forEach((item) => {
       renderTask(item);
     });
-
   } else {
     const { id, title, completed } = data;
     const element = createTask(id, title, completed);
