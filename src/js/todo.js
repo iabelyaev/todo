@@ -10,18 +10,6 @@ const buttonClearCompleted = document.querySelector('.filters__button');
 const buttonStrelka = document.querySelector('.todo__button');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
-const showButton = () => {
-  const elements = document.querySelectorAll('.todo__item');
-  const hasEventSome = todos.some((task) => task.completed === true);
-  buttonClearCompleted.style.display = 'none';
-  elements.forEach(() => {
-    if(hasEventSome) {
-      buttonClearCompleted.style.display = 'block';
-    } else {
-      buttonClearCompleted.style.display = 'none';
-    }
-  });
-};
 
 const showToggleAll = () => {
   const hasEventEvery = todos.every((task) => task.completed === true);
@@ -37,7 +25,6 @@ const showToggleAll = () => {
   } else {
     buttonStrelka.checked = false;
   }
-  showButton();
 };
 
 const completedTask = (evt) => {
@@ -52,7 +39,6 @@ const completedTask = (evt) => {
   parenNode.classList.toggle('todo__item--completed');
   getCount();
   saveLocal();
-  showButton();
   showToggleAll();
   initFilters();
 };
@@ -66,7 +52,6 @@ const deleteTask = (evt) => {
   const parenNodeId = Number(parenNode.dataset.id);
   todos = todos.filter((it) => it.id !== parenNodeId);
   parenNode.remove();
-  showButton();
   showToggleAll();
   getCount();
   saveLocal();
@@ -83,7 +68,6 @@ const clearCompleted = () => {
       todos = todos.filter((task) => task.completed !== true);
       saveLocal();
     });
-    showButton();
     showToggleAll();
   });
 };
@@ -107,11 +91,11 @@ function onButtonClickStrelka () {
       }
     });
     getCount();
-    showButton();
     showToggleAll();
     saveLocal();
   });
 }
+
 const getTodoData = (id) => todos.find((task) => task.id === Number(id));
 
 const editOfTask = (evt) => {
@@ -154,8 +138,6 @@ const editOfTask = (evt) => {
     saveLocal();
     getCount();
   });
-
-  showButton();
 };
 
 const init = () => {
@@ -186,4 +168,4 @@ const init = () => {
 };
 
 
-export { init, todos, showButton, showToggleAll, onButtonClickStrelka };
+export { init, todos };
