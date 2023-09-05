@@ -12,33 +12,27 @@ import htmlmin from 'gulp-htmlmin';
 
 // Styles
 
-const styles = () => {
-  return gulp.src('src/sass/style.scss', { sourcemaps: true })
-    .pipe(plumber())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(postcss([
-      autoprefixer(),
-      csso()
-    ]))
-    .pipe(rename('style.min.css'))
-    .pipe(gulp.dest('build/css', { sourcemaps: '.' }))
-    .pipe(browser.stream());
-}
+const styles = () => gulp.src('src/sass/style.scss', { sourcemaps: true })
+  .pipe(plumber())
+  .pipe(sass().on('error', sass.logError))
+  .pipe(postcss([
+    autoprefixer(),
+    csso()
+  ]))
+  .pipe(rename('style.min.css'))
+  .pipe(gulp.dest('build/css', { sourcemaps: '.' }))
+  .pipe(browser.stream());
 // HTML
 
-const html = () => {
-  return gulp.src('src/*.html')
+const html = () => gulp.src('src/*.html')
   .pipe(htmlmin({ collapseWhitespace: true }))
   .pipe(gulp.dest('build'));
-}
 
 // Scripts
 
-const scripts = () => {
-  return gulp.src('src/js/*.js')
+const scripts = () => gulp.src('src/js/*.js')
   .pipe(terser())
-  .pipe(gulp.dest('build/js'))
-}
+  .pipe(gulp.dest('build/js'));
 
 // Copy
 
@@ -48,15 +42,13 @@ const copy = (done) => {
   ], {
     base: 'src'
   })
-  .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('build'));
   done();
-}
+};
 
 // Clean
 
-const clean = () => {
-  return deleteAsync('build');
-}
+const clean = () => deleteAsync('build');
 
 // Server
 
@@ -70,14 +62,14 @@ export const server = (done) => {
     ui: false,
   });
   done();
-}
+};
 
 // Reload
 
 const reload = (done) => {
   browser.reload();
   done();
-}
+};
 
 
 // Watcher
@@ -86,7 +78,7 @@ const watcher = () => {
   gulp.watch('src/sass/**/*.scss', gulp.series(styles));
   gulp.watch('src/js/*.js', gulp.series(scripts, reload));
   gulp.watch('src/*.html', gulp.series(html, reload));
-}
+};
 
 // build
 
