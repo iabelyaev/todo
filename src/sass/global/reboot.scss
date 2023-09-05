@@ -4,6 +4,19 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background-color-body: #011e3c;
+  --background-color-button: #ffffff;
+  --background-color-footer: #081a2e;
+  --footer-text-color: #ebedf0;
+}
+
+[data-theme="light"] {
+  --background-color-body: #fff5ee;
+  --background-color-button: #e6e6e6;
+  --background-color-footer: #303846;
+}
+
 html {
   height: 100%;
 }
@@ -35,7 +48,7 @@ body {
 }
 
 .main {
-  position: relative; 
+  position: relative;
   padding-top: 75px;
   flex-grow: 1;
 }

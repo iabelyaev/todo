@@ -158,7 +158,6 @@ const editOfTask = (evt) => {
   showButton();
 };
 
-
 const init = () => {
   input.addEventListener('keydown', (evt) => {
     if (input.value === '') {

@@ -1,6 +1,6 @@
-
 const element = document.querySelector('.page');
 const btn = document.querySelector('.button-theme');
+
 
 const toggleTheme = () => {
   element.setAttribute('data-theme', 'dark');

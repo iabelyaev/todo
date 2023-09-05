@@ -1,6 +1,7 @@
 // Filters
 .filters {
   display: flex;
+  justify-content: center;
   align-items: center;
   height: 100%;
 
@@ -10,7 +11,8 @@
 }
 
 .filters__link {
-  font-size: 1rem;
+  display: inline-block;
+  font-size: .6rem;
   line-height: 1em;
   text-decoration: none;
   color: #000000;
@@ -28,16 +30,27 @@
   }
 }
 
+@media (min-width: 767px) {
+    .filters__link {
+      font-size: 1rem;
+    }
+}
+
 .filters__button {
-  display: none;
   padding: 0;
   border: none;
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 
   cursor: pointer;
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+@media (min-width: 600px) {
+  .filters__button {
+    font-size: 0.9rem;
   }
 }
