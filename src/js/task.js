@@ -16,7 +16,7 @@ const createTask = (id, title, completed = false) => {
   textTask.setAttribute('spellcheck', false);
 
   const buttonTask = createElement('button', 'todo__item-close');
-
+  buttonTask.type = 'button';
   labelTask.append(inputTask, spanTask);
 
   task.append(labelTask, textTask, buttonTask);
