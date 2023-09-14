@@ -39,6 +39,8 @@ const scripts = () => gulp.src('src/js/*.js')
 const copy = (done) => {
   gulp.src([
     'src/fonts/*.{woff2,woff}',
+    'src/images/*.{png, jpg, svg}',
+    'src/site.webmanifest'
   ], {
     base: 'src'
   })

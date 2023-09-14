@@ -15,7 +15,7 @@ const showToggleAll = () => {
   const hasEventEvery = todos.every((task) => task.completed === true);
   document.querySelector('.todo__button--control').style.display = 'none';
   if(todos.length >= 1) {
-    document.querySelector('.todo__button--control').style.display = 'block';
+    document.querySelector('.todo__button--control').style.display = 'flex';
   } else {
     document.querySelector('.todo__button--control').style.display = 'none';
   }
@@ -93,6 +93,7 @@ function onButtonClickStrelka () {
     getCount();
     showToggleAll();
     saveLocal();
+    initFilters();
   });
 }
 
@@ -120,8 +121,12 @@ const editOfTask = (evt) => {
       todos = todos.filter((task) => task.id !== parenNodeId);
       parenNode.remove();
     }
+    if (parenText.innerHTML === '' && evt.key === 'Escape') {
+      todos = todos.filter((task) => task.id !== parenNodeId);
+      parenNode.remove();
+    }
 
-    if(evt.key === 'Enter') {
+    if(evt.key === 'Enter' || evt.key === 'Escape') {
       parenText.setAttribute('contenteditable', false);
     }
     saveLocal();
@@ -129,7 +134,6 @@ const editOfTask = (evt) => {
   });
 
   document.addEventListener('click', () => {
-
     if (parenText.innerHTML === '') {
       todos = todos.filter((task) => task.id !== parenNodeId);
       parenNode.remove();
@@ -142,7 +146,7 @@ const editOfTask = (evt) => {
 
 const init = () => {
   input.addEventListener('keydown', (evt) => {
-    if (input.value === '') {
+    if (input.value.trim() === '') {
       return;
     }
 

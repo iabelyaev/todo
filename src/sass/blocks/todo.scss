@@ -57,8 +57,10 @@
   font-size: 0;
   position: absolute;
   top: -52px;
-  left: -13px;
+  left: -10px;
   transform: rotate(90deg);
+
+
 }
 
 .todo__button + .todo__button--control::before {
@@ -66,6 +68,11 @@
   padding: 10px 27px;
   font-size: 22px;
   color: #e6e6e6;
+  cursor: pointer;
+}
+
+.todo__button:hover + .todo__button--control::before {
+  color: #737373;
 }
 
 .todo__button:checked + .todo__button--control::before {

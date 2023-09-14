@@ -31,7 +31,8 @@
   margin: 0;
   padding-top: 15px;
   padding-bottom: 15px;
-  padding-right: 15px;
+  padding-right: 60px;
+  word-break: break-all;
 
   &:focus {
     outline: none;
@@ -87,9 +88,10 @@
   &::after {
     content: "×";
   }
-
-  &:hover {
-    color: #663399;
+  @media (any-hover: hover) {
+    &:hover {
+      color: #663399;
+    }
   }
 }
 
@@ -125,4 +127,14 @@
   align-items: center;
   max-width: 520px;
   width: 100%;
+}
+
+
+.todo-main__manual {
+  margin: 0;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1em;
+  color: var(--text-manual);
 }

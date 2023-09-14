@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Write down your task so that you don 't forget to complete it" />
     <meta  name="keywords" content="TodoList"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="mask-icon" href="./images/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
     <link rel="stylesheet" href="./css/style.min.css" />
     <title>TodoList</title>
   </head>
@@ -18,7 +24,7 @@
       <div class="container">
         <section class="todo" id="todo">
           <h1>todo</h1>
-          <input class="todo__new" type="text">
+          <input class="todo__new" type="text" required>
         </section>
         <section class="todo-main" id="todo-main">
             <input class="todo__button" type="checkbox" id="checkStrelka">
@@ -47,6 +53,10 @@
           </footer>
         </section>
       </div>
+
+      <span class="todo-main__manual">
+        Double-click to edit a todo
+      </span>
     </main>
     <footer class="footer">
       <div>
