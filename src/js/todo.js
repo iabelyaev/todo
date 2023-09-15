@@ -10,7 +10,6 @@ const buttonClearCompleted = document.querySelector('.filters__button');
 const buttonStrelka = document.querySelector('.todo__button');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
-
 const showToggleAll = () => {
   const hasEventEvery = todos.every((task) => task.completed === true);
   document.querySelector('.todo__button--control').style.display = 'none';
@@ -117,11 +116,7 @@ const editOfTask = (evt) => {
 
   // eslint-disable-next-line no-shadow
   parenText.addEventListener('keydown', (evt) => {
-    if (parenText.innerHTML === '' && evt.key === 'Enter') {
-      todos = todos.filter((task) => task.id !== parenNodeId);
-      parenNode.remove();
-    }
-    if (parenText.innerHTML === '' && evt.key === 'Escape') {
+    if (parenText.innerHTML === '' && evt.key === 'Enter' || parenText.innerHTML === '' && evt.key === 'Escape') {
       todos = todos.filter((task) => task.id !== parenNodeId);
       parenNode.remove();
     }

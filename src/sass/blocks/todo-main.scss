@@ -54,6 +54,10 @@
   cursor: pointer;
 }
 
+.todo__item-input:hover + span {
+  outline: 1px solid var(--outline-plum);
+}
+
 .todo__item-input:checked + span::before {
   content: "";
   width: 16px;
@@ -88,9 +92,10 @@
   &::after {
     content: "×";
   }
+
   @media (any-hover: hover) {
     &:hover {
-      color: #663399;
+      color: var(--btn-close-hover);
     }
   }
 }
