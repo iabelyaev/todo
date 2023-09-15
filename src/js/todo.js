@@ -108,12 +108,6 @@ const editOfTask = (evt) => {
   parenNode.classList.add('edit');
   parenText.setAttribute('contenteditable', true);
   parenNode.focus();
-  parenText.addEventListener('keyup', () => {
-    const todo = getTodoData(parenNodeId);
-    todo.title = parenText.textContent;
-    saveLocal();
-  });
-
   // eslint-disable-next-line no-shadow
   parenText.addEventListener('keydown', (evt) => {
     if (parenText.innerHTML === '' && evt.key === 'Enter' || parenText.innerHTML === '' && evt.key === 'Escape') {
@@ -121,19 +115,36 @@ const editOfTask = (evt) => {
       parenNode.remove();
     }
 
-    if(evt.key === 'Enter' || evt.key === 'Escape') {
+    if(evt.key === 'Enter') {
+      const todo = getTodoData(parenNodeId);
+      todo.title = parenText.textContent;
       parenText.setAttribute('contenteditable', false);
+      parenNode.classList.remove('edit');
+    }
+
+    if (evt.key === 'Escape') {
+      const todo = getTodoData(parenNodeId);
+      parenText.textContent = todo.title;
+      parenText.setAttribute('contenteditable', false);
+      parenNode.classList.remove('edit');
     }
     saveLocal();
     getCount();
   });
 
-  document.addEventListener('click', () => {
+  document.addEventListener('click', (evt) => {
     if (parenText.innerHTML === '') {
       todos = todos.filter((task) => task.id !== parenNodeId);
       parenNode.remove();
     }
 
+    if(evt.target.closest('.todo-main')) {
+      return;
+    }
+    const todo = getTodoData(parenNodeId);
+    todo.title = parenText.textContent;
+    parenText.setAttribute('contenteditable', false);
+    parenNode.classList.remove('edit');
     saveLocal();
     getCount();
   });

@@ -37,7 +37,6 @@ const renderTask = (data) => {
     if(completed) {
       element.classList.add('todo__item--completed');
     }
-
     todoList.append(element);
     return element;
   }
