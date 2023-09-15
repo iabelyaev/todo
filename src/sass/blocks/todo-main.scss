@@ -14,7 +14,7 @@
   position: relative;
   padding-left: 60px;
   font-size: 20px;
-  background-color: $white;
+  background-color: var(--_white);
 
   &:not(:last-child) {
     border-bottom: 1px solid hsl(0, 0%, 41.2%, 0.3);
@@ -48,7 +48,7 @@
   transform: translateY(-50%);
   width: 30px;
   height: 30px;
-  border: 1px solid $dim-gray;
+  border: 1px solid var(--_dim-gray);
   border-radius: 50%;
   z-index: 11;
   cursor: pointer;
@@ -85,7 +85,7 @@
   height: 40px;
   font-size: 30px;
   cursor: pointer;
-  color: $plum;
+  color: var(--_plum);
   display: none;
   transition: color 0.3s ease-out;
 
@@ -111,7 +111,7 @@
 
 .todo-main__footer {
   min-height: 20px;
-  background-color: $white;
+  background-color: var(--_white);
   border-top: 1px solid hsl(0, 0%, 90%);
   padding: 10px 15px;
 }
