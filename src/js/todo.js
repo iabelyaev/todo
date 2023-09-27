@@ -1,13 +1,12 @@
 import { createTaskData } from './data.js';
 import { getCount } from './counter.js';
-import { saveLocal } from './local.js';
+import saveLocal from './local.js';
 import { initFilters } from './filter.js';
 import { renderTask } from './task.js';
 
 const input = document.querySelector('.todo__new');
-const todoList = document.querySelector('.todo__list');
 const buttonClearCompleted = document.querySelector('.filters__button');
-const buttonStrelka = document.querySelector('.todo__button');
+const buttonArrow = document.querySelector('.todo__button');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 const showToggleAll = () => {
@@ -20,13 +19,13 @@ const showToggleAll = () => {
   }
 
   if (hasEventEvery) {
-    buttonStrelka.checked = true;
+    buttonArrow.checked = true;
   } else {
-    buttonStrelka.checked = false;
+    buttonArrow.checked = false;
   }
 };
 
-const completedTask = (evt) => {
+const onChangeCompletedTask = (evt) => {
   if (!evt.target.classList.contains('todo__item-input')) {
     return;
   }
@@ -36,24 +35,24 @@ const completedTask = (evt) => {
 
   taskElement.completed = !taskElement.completed;
   parenNode.classList.toggle('todo__item--completed');
-  getCount();
-  saveLocal();
+  getCount(todos);
+  saveLocal(todos);
   showToggleAll();
   initFilters();
 };
 
-const deleteTask = (evt) => {
+const onClickRemoveTask = (evt) => {
   if (!evt.target.classList.contains('todo__item-close')) {
     return;
   }
 
   const parenNode = evt.target.closest('.todo__item');
-  const parenNodeId = Number(parenNode.dataset.id);
+  const parenNodeId = +parenNode.dataset.id;
   todos = todos.filter((it) => it.id !== parenNodeId);
   parenNode.remove();
   showToggleAll();
-  getCount();
-  saveLocal();
+  getCount(todos);
+  saveLocal(todos);
 };
 
 const clearCompleted = () => {
@@ -64,18 +63,18 @@ const clearCompleted = () => {
         return;
       }
       item.remove();
-      todos = todos.filter((task) => task.completed !== true);
-      saveLocal();
+      todos = todos.filter((task) => !task.completed);
+      saveLocal(todos);
     });
     showToggleAll();
   });
 };
 
-function onButtonClickStrelka () {
-  buttonStrelka.addEventListener('change', () => {
+function onButtonClickArrow () {
+  buttonArrow.addEventListener('change', () => {
     todos.forEach((item) => {
       const elements = document.querySelectorAll(`.todo__item[data-id="${item.id}"]`);
-      if(buttonStrelka.checked) {
+      if(buttonArrow.checked) {
         item.completed = true;
         elements.forEach((element) => {
           element.classList.add('todo__item--completed');
@@ -89,65 +88,67 @@ function onButtonClickStrelka () {
         });
       }
     });
-    getCount();
+    getCount(todos);
     showToggleAll();
-    saveLocal();
+    saveLocal(todos);
     initFilters();
   });
 }
 
-const getTodoData = (id) => todos.find((task) => task.id === Number(id));
-
 const editOfTask = (evt) => {
-  if(!evt.target.classList.contains('todo__text')) {
-    return;
-  }
   const parenNode = evt.target.closest('.todo__item');
-  const parenNodeId = Number(parenNode.dataset.id);
+  const parenNodeId = +parenNode.dataset.id;
   const parenText = parenNode.querySelector('.todo__text');
+  const todo = todos.find((item) => item.id === parenNodeId);
   parenNode.classList.add('edit');
   parenText.setAttribute('contenteditable', true);
   parenNode.focus();
   // eslint-disable-next-line no-shadow
   parenText.addEventListener('keydown', (evt) => {
-    if (parenText.innerHTML === '' && evt.key === 'Enter' || parenText.innerHTML === '' && evt.key === 'Escape') {
+    if(parenText.innerHTML === '' && evt.key === 'Enter' || parenText.innerHTML === '' && evt.key === 'Escape') {
       todos = todos.filter((task) => task.id !== parenNodeId);
       parenNode.remove();
     }
 
     if(evt.key === 'Enter') {
-      const todo = getTodoData(parenNodeId);
       todo.title = parenText.textContent;
-      parenText.setAttribute('contenteditable', false);
+      parenText.removeAttribute('contenteditable');
       parenNode.classList.remove('edit');
     }
 
-    if (evt.key === 'Escape') {
-      const todo = getTodoData(parenNodeId);
+    if(evt.key === 'Escape') {
       parenText.textContent = todo.title;
-      parenText.setAttribute('contenteditable', false);
+      parenText.removeAttribute('contenteditable');
       parenNode.classList.remove('edit');
     }
-    saveLocal();
-    getCount();
+    saveLocal(todos);
+    getCount(todos);
   });
 
+  // eslint-disable-next-line no-shadow
   document.addEventListener('click', (evt) => {
-    if (parenText.innerHTML === '') {
-      todos = todos.filter((task) => task.id !== parenNodeId);
-      parenNode.remove();
-    }
-
-    if(evt.target.closest('.todo-main')) {
+    if(evt.target.closest('.todo-app')) {
       return;
     }
-    const todo = getTodoData(parenNodeId);
-    todo.title = parenText.textContent;
-    parenText.setAttribute('contenteditable', false);
-    parenNode.classList.remove('edit');
-    saveLocal();
-    getCount();
+    if(parenText.getAttribute('contenteditable')) {
+      todo.title = parenText.textContent;
+      parenText.removeAttribute('contenteditable');
+      parenNode.classList.remove('edit');
+    }
+    saveLocal(todos);
+    getCount(todos);
   });
+};
+
+const addTask = () => {
+  const newTodo = createTaskData();
+  renderTask(newTodo);
+  todos.push(newTodo);
+  saveLocal(todos);
+  getCount(todos);
+  initFilters();
+  showToggleAll();
+  input.value = '';
 };
 
 const init = () => {
@@ -157,25 +158,21 @@ const init = () => {
     }
 
     if (evt.key === 'Enter') {
-      const newTodo = createTaskData();
-      renderTask(newTodo);
-      todos.push(newTodo);
-      saveLocal();
-      getCount();
-      initFilters();
-      showToggleAll();
-      input.value = '';
+      addTask();
     }
+  });
+  document.addEventListener('click', (evt) => {
+    if (input.value.trim() === '' || evt.target.closest('.todo-app')) {
+      return;
+    }
+
+    addTask();
   });
   clearCompleted();
   initFilters();
-  onButtonClickStrelka();
+  onButtonClickArrow();
   showToggleAll();
-
-  todoList.addEventListener('change', completedTask);
-  todoList.addEventListener('click', deleteTask);
-  todoList.addEventListener('dblclick', editOfTask);
 };
 
 
-export { init, todos };
+export { init, todos, onClickRemoveTask, onChangeCompletedTask, editOfTask };

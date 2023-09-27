@@ -5,7 +5,7 @@ const Filter = {
   ACTIVE: 'active',
   COMPLETED: 'completed',
 };
-const filter = document.querySelector('.filters');
+const filters = document.querySelector('.filters');
 let activeFilter = document.querySelector('.filters__link--active');
 const ACTIVE_CLASS = 'filters__link--active';
 
@@ -24,9 +24,9 @@ const getFilteredItems = (filterName) => {
   }
 };
 
-const toggleFilter = (filters) => {
+const toggleFilter = (filtersName) => {
   activeFilter.classList.remove(ACTIVE_CLASS);
-  activeFilter = document.querySelector(`#${filters}`);
+  activeFilter = document.querySelector(`#${filtersName}`);
   activeFilter.classList.add(ACTIVE_CLASS);
 };
 
@@ -36,7 +36,7 @@ const initFilters = () => {
   const data = getFilteredItems(filterNames);
   renderTask(data);
 
-  filter.addEventListener('click', (evt) => {
+  filters.addEventListener('click', (evt) => {
     if(!evt.target.classList.contains('filters__link')) {
       return;
     }

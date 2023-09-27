@@ -1,8 +1,6 @@
-import { todos } from './todo.js';
-
 const countLeft = document.querySelector('.count');
 
-export const getCount = () => {
+export const getCount = (todos) => {
   let count = 0;
   todos.forEach((element) => {
     if(!element.completed) {

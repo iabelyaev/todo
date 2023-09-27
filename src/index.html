@@ -22,36 +22,38 @@
     </div>
     <main class="main">
       <div class="container">
-        <section class="todo" id="todo">
-          <h1>todo</h1>
-          <input class="todo__new" type="text" required>
-        </section>
-        <section class="todo-main" id="todo-main">
-            <input class="todo__button" type="checkbox" id="checkStrelka">
-            <label for="checkStrelka" class="todo__button--control"></label>
-          <ul class="todo__list"></ul>
-          <footer class="todo-main__footer">
-            <div class="todo-main__footer-inner">
-              <span class="todo-main__count"><span class="count"></span> item</span>
-              <div class="filters">
-                <a class="filters__link filters__link--active" id="all" href="#/">
-                  all
-                </a>
-                <a class="filters__link" id="active" href="#/active">
-                  active
-                </a>
-                <a class="filters__link" id="completed" href="#/completed">
-                  completed
-                </a>
-              </div>
-              <div>
-                <button class="filters__button">
-                  Clear completed
-                </button>
-              </div>
+        <h1>todo</h1>
+        <div class="todo-app">
+          <section class="todo" id="todo">
+            <input class="todo__new" type="text" required>
+          </section>
+          <section class="todo-main" id="todo-main">
+              <input class="todo__button" type="checkbox" id="checkStrelka">
+              <label for="checkStrelka" class="todo__button--control"></label>
+            <ul class="todo__list"></ul>
+          </section>
+        </div>
+        <footer class="todo-main__footer">
+          <div class="todo-main__footer-inner">
+            <span class="todo-main__count"><span class="count"></span> item</span>
+            <div class="filters">
+              <a class="filters__link filters__link--active" id="all" href="#/">
+                all
+              </a>
+              <a class="filters__link" id="active" href="#/active">
+                active
+              </a>
+              <a class="filters__link" id="completed" href="#/completed">
+                completed
+              </a>
             </div>
-          </footer>
-        </section>
+            <div>
+              <button class="filters__button">
+                Clear completed
+              </button>
+            </div>
+          </div>
+        </footer>
       </div>
 
       <span class="todo-main__manual">

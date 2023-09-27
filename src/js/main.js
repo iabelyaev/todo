@@ -6,13 +6,13 @@ import { toggleTheme } from './theme.js';
 init();
 
 if (localStorage.getItem('todos')) {
-  todos.map((task) => {
+  todos.forEach((task) => {
     renderTask(task);
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   initFilters();
-  getCount();
+  getCount(todos);
   toggleTheme();
 });

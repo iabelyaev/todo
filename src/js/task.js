@@ -1,4 +1,5 @@
 import { createElement } from './utils.js';
+import { onChangeCompletedTask, onClickRemoveTask, editOfTask} from './todo.js';
 
 const todoList = document.querySelector('.todo__list');
 
@@ -13,7 +14,6 @@ const createTask = (id, title, completed = false) => {
   const spanTask = createElement('span', 'todo__item-input');
   spanTask.classList.add('todo__item-input--control');
   const textTask = createElement('p', 'todo__text', title);
-  textTask.setAttribute('spellcheck', false);
 
   const buttonTask = createElement('button', 'todo__item-close');
   buttonTask.type = 'button';
@@ -34,9 +34,14 @@ const renderTask = (data) => {
     const { id, title, completed } = data;
     const element = createTask(id, title, completed);
 
+    element.addEventListener('click', onClickRemoveTask);
+    element.addEventListener('change', onChangeCompletedTask);
+    element.addEventListener('dblclick', editOfTask);
+
     if(completed) {
       element.classList.add('todo__item--completed');
     }
+
     todoList.append(element);
     return element;
   }
