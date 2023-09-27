@@ -30,7 +30,7 @@ const onChangeCompletedTask = (evt) => {
     return;
   }
   const parenNode = evt.target.closest('.todo__item');
-  const parenNodeId = Number(parenNode.dataset.id);
+  const parenNodeId = +parenNode.dataset.id;
   const taskElement = todos.find((item) => item.id === parenNodeId);
 
   taskElement.completed = !taskElement.completed;
