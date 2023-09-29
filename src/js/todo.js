@@ -35,9 +35,7 @@ const onChangeCompletedTask = (evt) => {
 
   taskElement.completed = !taskElement.completed;
   parenNode.classList.toggle('todo__item--completed');
-  getCount(todos);
-  saveLocal(todos);
-  showToggleAll();
+  globasUpdateTasks();
   initFilters();
 };
 
@@ -50,9 +48,7 @@ const onClickRemoveTask = (evt) => {
   const parenNodeId = +parenNode.dataset.id;
   todos = todos.filter((it) => it.id !== parenNodeId);
   parenNode.remove();
-  showToggleAll();
-  getCount(todos);
-  saveLocal(todos);
+  globasUpdateTasks();
 };
 
 const clearCompleted = () => {
@@ -88,9 +84,7 @@ function onButtonClickArrow () {
         });
       }
     });
-    getCount(todos);
-    showToggleAll();
-    saveLocal(todos);
+    globasUpdateTasks();
     initFilters();
   });
 }
@@ -144,10 +138,8 @@ const addTask = () => {
   const newTodo = createTaskData();
   renderTask(newTodo);
   todos.push(newTodo);
-  saveLocal(todos);
-  getCount(todos);
+  globasUpdateTasks();
   initFilters();
-  showToggleAll();
   input.value = '';
 };
 
@@ -173,6 +165,12 @@ const init = () => {
   onButtonClickArrow();
   showToggleAll();
 };
+
+function globasUpdateTasks() {
+  getCount(todos);
+  saveLocal(todos);
+  showToggleAll();
+}
 
 
 export { init, todos, onClickRemoveTask, onChangeCompletedTask, editOfTask };
