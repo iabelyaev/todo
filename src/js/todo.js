@@ -26,9 +26,6 @@ const showToggleAll = () => {
 };
 
 const onChangeCompletedTask = (evt) => {
-  if (!evt.target.classList.contains('todo__item-input')) {
-    return;
-  }
   const parenNode = evt.target.closest('.todo__item');
   const parenNodeId = +parenNode.dataset.id;
   const taskElement = todos.find((item) => item.id === parenNodeId);
@@ -40,10 +37,6 @@ const onChangeCompletedTask = (evt) => {
 };
 
 const onClickRemoveTask = (evt) => {
-  if (!evt.target.classList.contains('todo__item-close')) {
-    return;
-  }
-
   const parenNode = evt.target.closest('.todo__item');
   const parenNodeId = +parenNode.dataset.id;
   todos = todos.filter((it) => it.id !== parenNodeId);
