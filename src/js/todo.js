@@ -10,19 +10,13 @@ const buttonArrow = document.querySelector('.todo__button');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 const showToggleAll = () => {
-  const hasEventEvery = todos.every((task) => task.completed === true);
-  document.querySelector('.todo__button--control').style.display = 'none';
+  const hasEventEvery = todos.every((task) => task.completed);
   if(todos.length >= 1) {
     document.querySelector('.todo__button--control').style.display = 'flex';
   } else {
     document.querySelector('.todo__button--control').style.display = 'none';
   }
-
-  if (hasEventEvery) {
-    buttonArrow.checked = true;
-  } else {
-    buttonArrow.checked = false;
-  }
+  buttonArrow.checked = hasEventEvery;
 };
 
 const onChangeCompletedTask = (evt) => {
