@@ -20,34 +20,33 @@ const showToggleAll = () => {
 };
 
 const onChangeCompletedTask = (evt) => {
-  const parenNode = evt.target.closest('.todo__item');
-  const parenNodeId = +parenNode.dataset.id;
-  const taskElement = todos.find((item) => item.id === parenNodeId);
+  const parentNode = evt.target.closest('.todo__item');
+  const parentNodeId = +parentNode.dataset.id;
+  const taskElement = todos.find((item) => item.id === parentNodeId);
 
   taskElement.completed = !taskElement.completed;
-  parenNode.classList.toggle('todo__item--completed');
+  parentNode.classList.toggle('todo__item--completed');
   globasUpdateTasks();
   initFilters();
 };
 
 const onClickRemoveTask = (evt) => {
-  const parenNode = evt.target.closest('.todo__item');
-  const parenNodeId = +parenNode.dataset.id;
-  todos = todos.filter((it) => it.id !== parenNodeId);
-  parenNode.remove();
+  const parentNode = evt.target.closest('.todo__item');
+  const parentNodeId = +parentNode.dataset.id;
+  todos = todos.filter((it) => it.id !== parentNodeId);
+  parentNode.remove();
   globasUpdateTasks();
 };
 
 const clearCompleted = () => {
   buttonClearCompleted.addEventListener('click', () => {
-    const element = document.querySelectorAll('.todo__item');
-    element.forEach((item) => {
-      if(!item.classList.contains('todo__item--completed')) {
+    todos.forEach((item) => {
+      if (!item.completed) {
         return;
       }
-      item.remove();
       todos = todos.filter((task) => !task.completed);
       saveLocal(todos);
+      renderTask(todos);
     });
     showToggleAll();
   });
@@ -77,30 +76,33 @@ function onButtonClickArrow () {
 }
 
 const editOfTask = (evt) => {
-  const parenNode = evt.target.closest('.todo__item');
-  const parenNodeId = +parenNode.dataset.id;
-  const parenText = parenNode.querySelector('.todo__text');
-  const todo = todos.find((item) => item.id === parenNodeId);
-  parenNode.classList.add('edit');
-  parenText.setAttribute('contenteditable', true);
-  parenNode.focus();
+  const parentNode = evt.target.closest('.todo__item');
+  const parentNodeId = +parentNode.dataset.id;
+  const parentText = parentNode.querySelector('.todo__text');
+  const todo = todos.find((item) => item.id === parentNodeId);
+  if (parentNode.classList.contains('todo__item--completed')) {
+    return;
+  }
+  parentNode.classList.add('edit');
+  parentText.setAttribute('contenteditable', true);
+  parentNode.focus();
   // eslint-disable-next-line no-shadow
-  parenText.addEventListener('keydown', (evt) => {
-    if(parenText.innerHTML === '' && evt.key === 'Enter' || parenText.innerHTML === '' && evt.key === 'Escape') {
-      todos = todos.filter((task) => task.id !== parenNodeId);
-      parenNode.remove();
+  parentText.addEventListener('keydown', (evt) => {
+    if(parentText.innerHTML === '' && evt.key === 'Enter' || parentText.innerHTML === '' && evt.key === 'Escape') {
+      todos = todos.filter((task) => task.id !== parentNodeId);
+      parentNode.remove();
     }
 
     if(evt.key === 'Enter') {
-      todo.title = parenText.textContent;
-      parenText.removeAttribute('contenteditable');
-      parenNode.classList.remove('edit');
+      todo.title = parentText.textContent;
+      parentText.removeAttribute('contenteditable');
+      parentNode.classList.remove('edit');
     }
 
     if(evt.key === 'Escape') {
-      parenText.textContent = todo.title;
-      parenText.removeAttribute('contenteditable');
-      parenNode.classList.remove('edit');
+      parentText.textContent = todo.title;
+      parentText.removeAttribute('contenteditable');
+      parentNode.classList.remove('edit');
     }
     saveLocal(todos);
     getCount(todos);
@@ -111,14 +113,15 @@ const editOfTask = (evt) => {
     if(evt.target.closest('.todo-app')) {
       return;
     }
-    if(parenText.getAttribute('contenteditable')) {
-      todo.title = parenText.textContent;
-      parenText.removeAttribute('contenteditable');
-      parenNode.classList.remove('edit');
+    if(parentText.getAttribute('contenteditable')) {
+      todo.title = parentText.textContent;
+      parentText.removeAttribute('contenteditable');
+      parentNode.classList.remove('edit');
     }
     saveLocal(todos);
     getCount(todos);
   });
+
 };
 
 const addTask = () => {
