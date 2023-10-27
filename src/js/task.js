@@ -36,7 +36,7 @@ const renderTask = (data) => {
 
     element.querySelector('.todo__item-close').addEventListener('click', onClickRemoveTask);
     element.querySelector('.todo__item-input').addEventListener('change', onChangeCompletedTask);
-    element.addEventListener('click', editOfTask);
+    element.addEventListener('dblclick', editOfTask);
 
     if(completed) {
       element.classList.add('todo__item--completed');

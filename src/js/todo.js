@@ -85,7 +85,7 @@ const editOfTask = (evt) => {
   }
   parentNode.classList.add('edit');
   parentText.setAttribute('contenteditable', true);
-  parentNode.focus();
+  parentText.focus();
   // eslint-disable-next-line no-shadow
   parentText.addEventListener('keydown', (evt) => {
     if(parentText.innerHTML === '' && evt.key === 'Enter' || parentText.innerHTML === '' && evt.key === 'Escape') {
