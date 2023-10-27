@@ -1,0 +1,1 @@
+const saveLocal=o=>{localStorage.setItem("todos",JSON.stringify(o))};export default saveLocal;

@@ -1,0 +1,1 @@
+const countLeft=document.querySelector(".count");export const getCount=t=>{let e=0;t.forEach((t=>{t.completed||e++})),countLeft.textContent=e};

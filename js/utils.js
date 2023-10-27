@@ -1,0 +1,1 @@
+const createElement=(e,t,n)=>{const c=document.createElement(e);return t&&c.classList.add(t),n&&(c.textContent=n),c};export{createElement};

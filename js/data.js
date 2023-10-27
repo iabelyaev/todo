@@ -1,0 +1,1 @@
+const todoInput=document.querySelector(".todo__new"),createTaskData=()=>{const t=todoInput.value;return{id:Date.now(),title:t,completed:!1}};export{createTaskData};

@@ -1,0 +1,1 @@
+const element=document.querySelector(".page"),btn=document.querySelector(".button-theme"),toggleTheme=()=>{element.setAttribute("data-theme","dark"),btn.addEventListener("click",(()=>{"dark"===element.dataset.theme?element.setAttribute("data-theme","light"):element.setAttribute("data-theme","dark")}))};export{toggleTheme};
